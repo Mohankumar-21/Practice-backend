@@ -5,7 +5,10 @@ const updateUserDetail = async(req,res)=>
 {
    try
    {
-      const token = req.cookies.token || "" ;
+  const token = req.cookies.token || 
+    req.headers.authorization && req.headers.authorization.split(' ')[1] || 
+    req.query.token || 
+    "";
       const user = await getUserDetail(token);
 
       if (!user || !user._id) {
